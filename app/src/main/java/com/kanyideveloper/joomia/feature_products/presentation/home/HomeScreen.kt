@@ -70,6 +70,7 @@ fun HomeScreen(
     val productsState = viewModel.productsState.value
     val categories = viewModel.categoriesState.value
 
+
     Scaffold(
         topBar = {
             MyTopAppBar(

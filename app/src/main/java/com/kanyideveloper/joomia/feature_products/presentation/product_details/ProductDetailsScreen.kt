@@ -35,8 +35,10 @@ import com.kanyideveloper.joomia.feature_products.domain.model.Product
 import com.kanyideveloper.joomia.feature_wish_list.data.mapper.toWishlistRating
 import com.kanyideveloper.joomia.feature_wish_list.domain.model.Wishlist
 import com.kanyideveloper.joomia.feature_wish_list.presentation.wishlist.WishlistViewModel
+import com.kanyideveloper.joomia.tracking.SnowplowTracker
 import com.ramcosta.composedestinations.annotation.Destination
 import com.ramcosta.composedestinations.navigation.DestinationsNavigator
+import javax.inject.Inject
 
 @Destination
 @Composable
@@ -46,6 +48,9 @@ fun ProductDetailsScreen(
     viewModel: WishlistViewModel = hiltViewModel(),
 ) {
     val inWishlist = viewModel.inWishlist(product.id).observeAsState().value != null
+
+    val analytics = SnowplowTracker(LocalContext.current)
+    analytics.TrackProductView(product = product)
 
     Scaffold(
         backgroundColor = Color.White,
